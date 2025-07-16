@@ -53,14 +53,14 @@ const PhoneInput = ({ register, errors }: phoneInputProps) => {
       <div className="flex flex-col gap-1">
         <label
           htmlFor="country-code"
-          className="block text-sm mb-1 text-gray-700 dark:text-gray-300"
+          className="block text-sm mb-1 text-neutral-800 dark:text-neutral-100"
         >
           Country Code
         </label>
         <select
           {...register("countryCode")}
           id="country-code"
-          className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-black dark:text-white p-2 rounded-md"
+          className="w-full border border-text-100 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-50 p-2 rounded-md"
         >
           <option value="">Select Country</option>
           {countries?.map((c: CountryTypes, i: number) => (
@@ -79,7 +79,7 @@ const PhoneInput = ({ register, errors }: phoneInputProps) => {
       <div className="flex flex-col gap-1">
         <label
           htmlFor="phone-number"
-          className="block text-sm mb-1 text-gray-700 dark:text-gray-300"
+          className="block text-sm mb-1 text-gray-700 dark:text-gray-100"
         >
           Phone Number
         </label>
@@ -88,7 +88,7 @@ const PhoneInput = ({ register, errors }: phoneInputProps) => {
           id="phone-number"
           type="tel"
           placeholder="Enter your number"
-          className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-black dark:text-white p-2 rounded-md"
+          className="w-full border border-neutral-100 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-50 p-2 rounded-md"
         />
         {errors?.phone && (
           <p className="text-red-500 text-sm">

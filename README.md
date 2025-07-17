@@ -88,7 +88,7 @@ npm install
 npm run dev
 ```
 
-# App will run at http://localhost:3000
+#### App will run at http://localhost:3000
 
 ## Coming in next version.
 - Add backend integration for real OTP.

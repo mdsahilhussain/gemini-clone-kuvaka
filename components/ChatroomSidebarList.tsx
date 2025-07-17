@@ -72,14 +72,14 @@ export default function ChatroomSidebarList() {
             </span>
           )}
 
-          <div className="flex gap-1 opacity-0 group-hover/sidebarList:opacity-100 transition">
+          <div className="flex gap-2 opacity-0 group-hover/sidebarList:opacity-100 transition">
             <Button
               type="button"
               onClick={() => {
                 setEditingId(chat.id);
                 setEditedTitle(chat.title);
               }}
-              className="p-1"
+              className="p-1 !bg-transparent ring-1 ring-neutral-700 dark:ring-neutral-400"
               aria-label="Rename"
             >
               <Pencil size={14} className="text-yellow-600" />
@@ -87,7 +87,7 @@ export default function ChatroomSidebarList() {
             <Button
               type="button"
               onClick={() => handleDelete(chat.id)}
-              className="text-red-500 p-1"
+              className="p-1 !bg-transparent ring-1 ring-neutral-700 dark:ring-neutral-400"
               aria-label="Delete"
             >
               <Trash2 size={14} className="text-red-500" />

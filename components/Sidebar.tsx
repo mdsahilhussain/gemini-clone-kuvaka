@@ -1,12 +1,13 @@
 "use client";
+import { useState } from "react";
+
 import SidebarHeader from "./SidebarHeader";
 import ChatroomSidebarList from "./ChatroomSidebarList";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ui/theme-toggle";
 
 const Sidebar = () => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const toggleSidebar = () => setIsExpanded(!isExpanded);
 
   return (

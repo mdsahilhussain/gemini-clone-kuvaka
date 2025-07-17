@@ -75,7 +75,7 @@ const Page = () => {
 
   return (
     <>
-      <p className="text-sm text-neutral-800 dark:text-neutral-100 w-full flex items-center gap-2 pt-10 sm:pt-0">
+      <p className="text-sm text-neutral-800 dark:text-neutral-100 w-full flex items-center gap-2 pt-10 sm:pt-4">
         Change the phone number?
         <span className="text-blue-500 pl-2">{user?.phone}</span>
         <PenLineIcon
@@ -113,7 +113,7 @@ const Page = () => {
           Resend OTP
         </Button>
       </div>
-      <p className="text-xs text-neutral-700 dark:text-neutral-50 absolute top-5 right-3 capitalize">
+      <p className="text-xs text-neutral-700 dark:text-neutral-50 absolute top-5 right-4 capitalize">
         its bad practice but,
         <span
           onClick={handleShowOtp}

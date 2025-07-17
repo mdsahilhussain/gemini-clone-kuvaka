@@ -14,7 +14,13 @@ export function useSessionStorage() {
   const getSessionItem = useCallback((key: string): string | null  => {
     try {
       const value = sessionStorage.getItem(key);
-      return value ? JSON.parse(value) : null;
+      if (!value) return null;
+
+      const trimmed = value.trim();
+      const firstChar = trimmed[0];
+      const shouldParse = firstChar === '{' || firstChar === '[' || firstChar === '"';
+
+      return shouldParse ? JSON.parse(trimmed) : trimmed;
     } catch (error) {
       console.error("Error getting sessionStorage:", error);
       return null;

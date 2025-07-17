@@ -30,7 +30,7 @@ const SidebarHeader = ({ isExpanded, handler }: SidebarProps) => {
 
       <Button
         onClick={handleNewChat}
-        className="flex items-center justify-center gap-4 !bg-transparent !text-neutral-400"
+        className="flex items-center justify-center gap-4 !bg-transparent !text-neutral-700 dark:!text-neutral-400"
       >
         <SquarePenIcon size={18} />
         {isExpanded && "New Chat"}

@@ -1,11 +1,18 @@
 "use client";
 
 import { useChatStore } from "@/lib/store/useChatStore";
-import { Plus } from "lucide-react";
+import { MenuIcon, SquarePenIcon } from "lucide-react";
 import { toast } from "sonner";
-import Button from "./ui/button";
 
-export default function SidebarHeader() {
+import Button from "./ui/button";
+import SearchBar from "./SearchBar";
+
+export interface SidebarProps {
+  isExpanded: boolean;
+  handler: () => void;
+}
+
+const SidebarHeader = ({ isExpanded, handler }: SidebarProps) => {
   const { addChatroom } = useChatStore();
 
   const handleNewChat = () => {
@@ -14,13 +21,23 @@ export default function SidebarHeader() {
   };
 
   return (
-    <div className="p-3">
+    <div className="flex flex-col gap-4 px-2">
+      <MenuIcon
+        size={18}
+        className="text-neutral-800 dark:text-neutral-400"
+        onClick={handler}
+      />
+
       <Button
         onClick={handleNewChat}
-        className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-neutral-900 dark:bg-neutral-50 text-neutral-50 dark:text-neutral-800 font-medium hover:opacity-90 transition"
+        className="flex items-center justify-center gap-4 !bg-transparent !text-neutral-400"
       >
-        <Plus size={18} /> New Chat
+        <SquarePenIcon size={18} />
+        {isExpanded && "New Chat"}
       </Button>
+      {isExpanded && <SearchBar />}
     </div>
   );
-}
+};
+
+export default SidebarHeader;

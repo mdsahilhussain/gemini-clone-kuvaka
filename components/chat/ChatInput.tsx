@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ImageIcon, Send } from "lucide-react";
+import { ImageUpIcon, SendHorizonalIcon } from "lucide-react";
 import { useMessageStore } from "@/lib/store/useMessageStore";
 import Button from "../ui/button";
 import Input from "../ui/input";
@@ -44,30 +44,31 @@ export default function ChatInput({ chatId }: { chatId: string }) {
   };
 
   return (
-    <div className="w-full border-t border-gray-200 dark:border-gray-700 p-4 flex items-center gap-2 bg-white dark:bg-gray-900">
-      <label className="cursor-pointer text-gray-500 hover:text-black dark:hover:text-white">
-        <ImageIcon size={18} />
-        <Input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          className="hidden"
-        />
-      </label>
+    <div className="shadow-[0_-6px_12px_rgba(0,0,0,0.1)] w-full h-fit p-4 ring-1 ring-neutral-400 dark:ring-neutral-600 flex flex-col gap-2 mb-4 rounded-4xl ">
       <Input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSend()}
         placeholder="Type a message..."
-        className="flex-1 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-black dark:text-white outline-none"
+        className="focus-visible:ring-0 border-none outline-none"
       />
-      <Button
-        onClick={handleSend}
-        className="p-2 rounded-md bg-black dark:bg-white text-white dark:text-black hover:opacity-90 transition"
-      >
-        <Send size={18} />
-      </Button>
+      <div className="w-[98%] mx-auto flex items-center justify-between">
+        <label className="cursor-pointer text-gray-500 hover:text-black dark:hover:text-white">
+          <ImageUpIcon size={18} />
+          <Input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="hidden"
+          />
+        </label>
+        {input.trim() && (
+          <Button onClick={handleSend} className="p-2 rounded-full">
+            <SendHorizonalIcon size={18} />
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

@@ -71,19 +71,19 @@ The application mimics Gemini’s chat interface, authentication flow, and chatr
 
 ## 🚀 Getting Started
 
-# 1. Clone the repo
+#### 1. Clone the repo
 
 ```bash
 git clone https://github.com/your-username/gemini-clone-kuvaka.git
 ```
 
-# 2. Install dependencies
+#### 2. Install dependencies
 ```bash
 cd gemini-clone-kuvaka
 npm install
 ```
 
-# 3. Run in dev mode
+#### 3. Run in dev mode
 ```bash
 npm run dev
 ```

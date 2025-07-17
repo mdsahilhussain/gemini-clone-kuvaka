@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import axios from "axios";
+import Input from "./ui/input";
 
 type phoneInputProps = {
   register: UseFormRegister<any>;
@@ -60,7 +61,7 @@ const PhoneInput = ({ register, errors }: phoneInputProps) => {
         <select
           {...register("countryCode")}
           id="country-code"
-          className="w-full border border-text-100 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-50 p-2 rounded-md"
+          className="inputField"
         >
           <option value="">Select Country</option>
           {countries?.map((c: CountryTypes, i: number) => (
@@ -83,12 +84,11 @@ const PhoneInput = ({ register, errors }: phoneInputProps) => {
         >
           Phone Number
         </label>
-        <input
+        <Input
           {...register("phone")}
           id="phone-number"
           type="tel"
           placeholder="Enter your number"
-          className="w-full border border-neutral-100 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-50 p-2 rounded-md"
         />
         {errors?.phone && (
           <p className="text-red-500 text-sm">

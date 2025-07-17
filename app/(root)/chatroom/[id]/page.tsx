@@ -8,9 +8,11 @@ const Page = () => {
   const params = useParams();
   const chatId = params.id as string;
   return (
-    <div className="flex flex-col h-full">
-      <ChatMessages chatId={chatId} />
-      <ChatInput chatId={chatId} />
+    <div className="chatroom-layout">
+      <div className="chatroom-box">
+        <ChatMessages chatId={chatId} />
+        <ChatInput chatId={chatId} />
+      </div>
     </div>
   );
 };

@@ -2,18 +2,26 @@
 
 import { useState } from "react";
 import { Trash2, Pencil } from "lucide-react";
+import { useRouter } from "next/navigation";
+
 import Button from "./ui/button";
 import Input from "./ui/input";
 import { useChatStore } from "@/lib/store/useChatStore";
 import { toast } from "sonner";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function ChatroomSidebarList() {
+  const router = useRouter();
   const { chatrooms, filteredChatrooms, deleteChatroom, renameChatroom } =
     useChatStore();
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editedTitle, setEditedTitle] = useState("");
+  const [editedTitle, setEditedTitle] = useState<string>("");
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
+  const handleSelected = (id: string) => {
+    setSelectedId(id);
+    router.push(`/chatroom/${id}`);
+  };
   const handleRename = (id: string, newTitle: string) => {
     const current = chatrooms.find((chat) => chat.id === id);
     if (!current || current.title === newTitle.trim()) {
@@ -38,7 +46,12 @@ export default function ChatroomSidebarList() {
       {chatList.map((chat) => (
         <div
           key={chat.id}
-          className="flex items-center justify-between gap-2 px-3 py-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition group"
+          className={cn(
+            "flex items-center justify-between gap-2 p-2 rounded",
+            "hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors duration-300 ease-in-out group/sidebarList",
+            chat.id === selectedId && "bg-violet-500/50"
+          )}
+          onClick={() => handleSelected(chat.id)}
         >
           {editingId === chat.id ? (
             <Input
@@ -51,35 +64,33 @@ export default function ChatroomSidebarList() {
                 if (e.key === "Enter") handleRename(chat.id, editedTitle);
                 if (e.key === "Escape") setEditingId(null);
               }}
-              className="flex-1 bg-transparent text-sm text-neutral-800 dark:text-neutral-50 border-b border-neutral-300 dark:border-neutral-600 outline-none"
+              className="p-0 pl-2"
             />
           ) : (
-            <Link href={`/chatroom/${chat.id}`} className="flex-1">
-              <span className="truncate text-sm text-neutral-800 dark:text-neutral-50">
-                {chat.title}
-              </span>
-            </Link>
+            <span className="flex-1 truncate text-sm text-neutral-800 dark:text-neutral-50">
+              {chat.title}
+            </span>
           )}
 
-          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition">
+          <div className="flex gap-1 opacity-0 group-hover/sidebarList:opacity-100 transition">
             <Button
               type="button"
               onClick={() => {
                 setEditingId(chat.id);
                 setEditedTitle(chat.title);
               }}
-              className="text-neutral-500 hover:text-blue-500"
+              className="p-1"
               aria-label="Rename"
             >
-              <Pencil size={14} />
+              <Pencil size={14} className="text-yellow-600" />
             </Button>
             <Button
               type="button"
               onClick={() => handleDelete(chat.id)}
-              className="text-neutral-500 hover:text-red-500"
+              className="text-red-500 p-1"
               aria-label="Delete"
             >
-              <Trash2 size={14} />
+              <Trash2 size={14} className="text-red-500" />
             </Button>
           </div>
         </div>

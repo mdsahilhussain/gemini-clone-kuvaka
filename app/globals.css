@@ -1,8 +1,13 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,22 +17,40 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
 
 @layer components {
-  .root-layout {
-    @apply flex mx-auto max-w-7xl flex-col gap-12 my-12 px-16 max-sm:px-4 max-sm:my-8;
+  .chatroom-layout {
+    @apply h-full w-full lg:w-[80%] xl:w-[60%] flex mx-auto flex-col px-4;
+
+    .chatroom-box {
+      @apply flex flex-col h-full w-full;
+    }
+  }
+
+  .card-shadow-gradient {
+    @apply ring-4 ring-violet-500/50 shadow-2xl shadow-violet-800;
+  }
+
+  .inputField {
+    @apply w-full border rounded p-2 bg-neutral-50 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;
+  }
+
+  .hide-sidebar-hover {
+    @apply hidden sm:group-hover/sidebar:block transition delay-300 duration-700 ease-in-out;
   }
 }

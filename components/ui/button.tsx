@@ -10,7 +10,7 @@ const Button = ({
     <button
       {...props}
       className={cn(
-        "w-full py-2 rounded font-medium transition bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-100",
+        "w-fit py-2 rounded font-medium transition bg-black text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-100 cursor-pointer",
         className
       )}
     >

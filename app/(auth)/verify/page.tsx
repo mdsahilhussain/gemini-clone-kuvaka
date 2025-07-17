@@ -8,13 +8,12 @@ import Button from "@/components/ui/button";
 import OtpInput from "@/components/OtpInput";
 import { generateOtp, generateToken } from "@/lib/utils";
 import { PenLineIcon, VerifiedIcon } from "lucide-react";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useSessionStorage } from "@/hooks/useSessionStorage";
 import { useOtpStore } from "@/lib/store/useOtpStore";
 
 const Page = () => {
   const router = useRouter();
-  const { error, setOtp, setError, clearOtp } = useOtpStore();
+  const { user, error, setOtp, setError, clearOtp, clearUser } = useOtpStore();
   const { getSessionItem, setSessionItem, removeSessionItem } =
     useSessionStorage();
   const storedOtp =
@@ -30,8 +29,6 @@ const Page = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [verified, setVerified] = useState<boolean>(false);
-  const { getItem } = useLocalStorage();
-  const userDetail = typeof window !== "undefined" ? getItem("user") : null;
 
   const handleOtpComplete = (value: string) => {
     setLoading(true);
@@ -39,7 +36,7 @@ const Page = () => {
       if (value == storedOtp) {
         setSessionItem("token", generateToken());
         setVerified(true);
-        router.push("/dashboard");
+        router.push("/");
       } else {
         setError("Invalid OTP. Try again.");
       }
@@ -56,14 +53,15 @@ const Page = () => {
   };
 
   const handleGoBack = () => {
-    clearOtp();
-    removeSessionItem("otp");
     router.push("login");
+    removeSessionItem("otp");
+    clearOtp();
+    clearUser();
   };
 
   const handleShowOtp = () => {
     toast(
-      <div className="text-sm ">
+      <div className="text-sm">
         <h3 className="text-xl font-medium py-1">{storedOtp}</h3>
         Displaying the OTP like this is considered a
         <strong> bad practice</strong>. However, for this implementation, I need
@@ -77,9 +75,9 @@ const Page = () => {
 
   return (
     <>
-      <p className="text-sm text-neutral-800 dark:text-neutral-100 w-full flex items-center gap-2">
+      <p className="text-sm text-neutral-800 dark:text-neutral-100 w-full flex items-center gap-2 pt-10 sm:pt-0">
         Change the phone number?
-        <span className="text-blue-500 pl-2">{userDetail?.phone}</span>
+        <span className="text-blue-500 pl-2">{user?.phone}</span>
         <PenLineIcon
           size={16}
           className="cursor-pointer"
@@ -115,7 +113,7 @@ const Page = () => {
           Resend OTP
         </Button>
       </div>
-      <p className=" text-xs text-neutral-700 dark:text-neutral-50 absolute top-5 right-3 capitalize">
+      <p className="text-xs text-neutral-700 dark:text-neutral-50 absolute top-5 right-3 capitalize">
         its bad practice but,
         <span
           onClick={handleShowOtp}
